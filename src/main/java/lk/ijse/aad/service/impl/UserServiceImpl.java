@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
 
         UserDTO savedUserDTO = new UserDTO();
+        savedUserDTO.setId(savedUser.getId());
         savedUserDTO.setFirstName(savedUser.getFirstName());
         savedUserDTO.setLastName(savedUser.getLastName());
         savedUserDTO.setDob(savedUser.getDob());
@@ -80,6 +81,28 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             log.error("Error in getUsers!!!" + e.getMessage());
             throw e; // if not success, break the method and throw the error
+        }
+    }
+
+    @Override
+    public UserDTO getUserById(Long id) {
+        log.info("Execute getUserById for ID: " + id);
+
+        try{
+            User user = userRepository.findById(id).
+                    orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+
+            UserDTO userDTO = new UserDTO();
+            userDTO.setId(user.getId());
+            userDTO.setFirstName(user.getFirstName());
+            userDTO.setLastName(user.getLastName());
+            userDTO.setDob(user.getDob());
+            userDTO.setStatus(user.getStatus());
+
+            return userDTO;
+        } catch (Exception e) {
+            log.error("Error in getUserById!!!" + e.getMessage());
+            throw e;
         }
     }
 }

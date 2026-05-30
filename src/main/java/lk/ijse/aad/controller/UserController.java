@@ -29,7 +29,7 @@ public class UserController {
 
     // homework on get department by id
     @GetMapping(value = "/userId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO getUserById(@RequestParam("id") int id){
-
+    public UserDTO getUserById(@RequestParam("id") Long id){
+        return userService.getUserById(id);
     }
 }

@@ -79,4 +79,24 @@ public class DepartmentServiceImpl implements DepartmentService {
             throw e;
         }
     }
+
+    @Override
+    public DepartmentDTO getDepartmentById(Long id) {
+        log.info("getDepartmentById loaded for ID {}", id);
+
+        try{
+            Department department = departmentRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Department with ID " + id + " not found"));
+
+            DepartmentDTO departmentDTO = new DepartmentDTO();
+            departmentDTO.setDepartment_id(department.getDepartment_id());
+            departmentDTO.setDepartment_name(department.getDepartment_name());
+            departmentDTO.setDepartment_location(department.getDepartment_location());
+            return departmentDTO;
+
+        } catch (Exception e) {
+            log.error("Error in getDepartmentById!!!" + e.getMessage());
+            throw e;
+        }
+    }
 }

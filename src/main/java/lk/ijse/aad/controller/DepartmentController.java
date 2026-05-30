@@ -26,4 +26,9 @@ public class DepartmentController {
     public List<DepartmentDTO> getAllDepartments() {
         return departmentService.getDepartments();
     }
+
+    @GetMapping(value = "departmentId", produces = MediaType.APPLICATION_JSON_VALUE)
+    public DepartmentDTO getDepartmentById(@RequestParam("id") Long id){
+        return departmentService.getDepartmentById(id);
+    }
 }
