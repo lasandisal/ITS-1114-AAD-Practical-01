@@ -1,0 +1,16 @@
+### 1. Save a New Department
+POST http://localhost:8080/v1/departments
+Content-Type: application/json
+
+{
+  "department_name": "Computing",
+  "department_location": "Building A - Floor 2"
+}
+
+### 2. Get All Departments
+GET http://localhost:8080/v1/departments/all
+Accept: application/json
+
+### 3. Get Department By ID (Using RequestParam)
+GET http://localhost:8080/v1/departments/departmentId?id=1
+Accept: application/json

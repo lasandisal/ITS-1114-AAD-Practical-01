@@ -1,0 +1,18 @@
+### 1. Save a New User
+POST http://localhost:8080/v1/users
+Content-Type: application/json
+
+{
+  "firstName": "Natasha",
+  "lastName": "Perera",
+  "dob": "2002-05-30",
+  "status": "ACTIVE"
+}
+
+### 2. Get All Users
+GET http://localhost:8080/v1/users/all
+Accept: application/json
+
+### 3. Get User By ID (Using RequestParam)
+GET http://localhost:8080/v1/users/userId?id=1
+Accept: application/json
