@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -96,6 +97,34 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         } catch (Exception e) {
             log.error("Error in getDepartmentById!!!" + e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public DepartmentDTO updateDepartment(DepartmentDTO departmentDTO) {
+        log.info("updateDepartment loaded");
+        try {
+            Optional<Department> departmentOptional = departmentRepository.findById(departmentDTO.getDepartment_id());
+
+            if(!departmentOptional.isPresent()){
+                throw new RuntimeException("Department with ID " + departmentDTO.getDepartment_id() + " not found");
+            }
+
+            Department department = departmentOptional.get();
+            department.setDepartment_name(departmentDTO.getDepartment_name());
+            department.setDepartment_location(departmentDTO.getDepartment_location());
+            Department savedDepartment = departmentRepository.save(department);
+
+            DepartmentDTO savedDepartmentDTO = new DepartmentDTO();
+            savedDepartmentDTO.setDepartment_id(savedDepartment.getDepartment_id());
+            savedDepartmentDTO.setDepartment_name(savedDepartment.getDepartment_name());
+            savedDepartmentDTO.setDepartment_location(savedDepartment.getDepartment_location());
+
+            return savedDepartmentDTO;
+
+        }catch (Exception e){
+            log.error("Error occurred." + e.getMessage());
             throw e;
         }
     }

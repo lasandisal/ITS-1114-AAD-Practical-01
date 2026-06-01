@@ -27,8 +27,13 @@ public class DepartmentController {
         return departmentService.getDepartments();
     }
 
-    @GetMapping(value = "departmentId", produces = MediaType.APPLICATION_JSON_VALUE)
-    public DepartmentDTO getDepartmentById(@RequestParam("id") Long id){
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public DepartmentDTO getDepartmentById(@PathVariable("id") Long id) {
         return departmentService.getDepartmentById(id);
+    }
+
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public DepartmentDTO updateDepartment(@RequestBody DepartmentDTO departmentDTO) {
+        return departmentService.updateDepartment(departmentDTO);
     }
 }

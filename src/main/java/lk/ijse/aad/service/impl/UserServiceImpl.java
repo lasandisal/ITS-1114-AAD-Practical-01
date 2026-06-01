@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -102,6 +103,87 @@ public class UserServiceImpl implements UserService {
             return userDTO;
         } catch (Exception e) {
             log.error("Error in getUserById!!!" + e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public UserDTO updateUser(UserDTO userDTO) {
+        log.info("Execute updateUser for UserDTO: " + userDTO);
+
+        try{
+
+            Optional<User> optionalUser = userRepository.findById(userDTO.getId());
+            if(!optionalUser.isPresent()){
+                throw new RuntimeException("User not found with id: " + userDTO.getId());
+            }
+
+            User user = optionalUser.get();
+            user.setFirstName(userDTO.getFirstName());
+            user.setLastName(userDTO.getLastName());
+            user.setDob(userDTO.getDob());
+            user.setStatus(userDTO.getStatus());
+
+            User savedUser = userRepository.save(user);
+
+            UserDTO savedUserDTO = new UserDTO();
+            savedUserDTO.setId(savedUser.getId());
+            savedUserDTO.setFirstName(savedUser.getFirstName());
+            savedUserDTO.setLastName(savedUser.getLastName());
+            savedUserDTO.setDob(savedUser.getDob());
+            savedUserDTO.setStatus(savedUser.getStatus());
+
+            return savedUserDTO;
+
+        } catch (Exception e) {
+            log.error("Error in getUserById!!!" + e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public void updateUserStatus(UserDTO userDTO) {
+        log.info("Execute updateUserStatus for UserDTO: " + userDTO);
+        try{
+            Optional<User> optionalUser = userRepository.findById(userDTO.getId());
+            if(!optionalUser.isPresent()){
+                throw new RuntimeException("User not found with id: " + userDTO.getId());
+            }
+
+            if (userDTO.getId() == null) {
+                throw new IllegalArgumentException("User ID must not be null for status updates.");
+            }
+
+            if(userDTO.getStatus() == null){
+                throw new RuntimeException("UserStatus is null");
+            }
+
+            User user = optionalUser.get();
+            user.setStatus(userDTO.getStatus());
+            userRepository.save(user);
+
+        } catch (Exception e) {
+            log.error("Error in getUserById!!!" + e.getMessage());
+            throw e;
+        }
+    }
+
+    // return dto for best practice
+    @Override
+    public void deleteUser(Long id) {
+        log.info("Execute deleteUser for ID: " + id);
+        try{
+            Optional<User> optionalUser = userRepository.findById(id);
+            if(!optionalUser.isPresent()){
+                throw new RuntimeException("User not found with id: " + id);
+            }
+
+            User user = optionalUser.get();
+            user.setStatus(UserStatus.DELETED);
+            userRepository.save(user);
+
+        }catch(Exception e){
+            log.error("Error in deleteUser!!!" + e.getMessage());
             throw e;
         }
     }

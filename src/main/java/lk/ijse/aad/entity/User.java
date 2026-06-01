@@ -5,8 +5,9 @@ import lk.ijse.aad.enums.UserStatus;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
- @Data // = Getter + Setter + toString + .equal
+@Data // = Getter + Setter + toString + .equal
 //@Getter @Setter // Industry Standard
 @AllArgsConstructor @NoArgsConstructor
 @Entity
@@ -24,5 +25,8 @@ public class User {
     // Search and Save this enum as a String
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<UserDepartment> userDepartments;
 
 }

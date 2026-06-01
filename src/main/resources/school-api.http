@@ -1,0 +1,28 @@
+POST http://localhost:8080/v1/schools
+Content-Type: application/json
+
+{
+  "name" : "Sanghamitta College",
+  "location": "Galle"
+}
+
+###
+
+GET http://localhost:8080/v1/schools
+Accept: application/json
+
+###
+
+GET http://localhost:8080/v1/schools/1
+Accept: application/json
+
+###
+
+PUT http://localhost:8080/v1/schools
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name" : "Sanghamitta Balika Vidyalaya",
+  "location": "Galle"
+}

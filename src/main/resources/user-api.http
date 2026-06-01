@@ -16,3 +16,7 @@ Accept: application/json
 ### 3. Get User By ID (Using RequestParam)
 GET http://localhost:8080/v1/users/userId?id=1
 Accept: application/json
+
+### 4. Update User
+PUT http://localhost:8080/v1/users
+Accept: application/json
