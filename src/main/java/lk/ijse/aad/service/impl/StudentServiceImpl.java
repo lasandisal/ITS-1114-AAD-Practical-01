@@ -87,6 +87,7 @@ public class StudentServiceImpl implements StudentService {
                 studentDTO.setLastName(student.getLastName());
                 studentDTO.setAddress(student.getAddress());
                 studentDTO.setDob(student.getDob());
+                studentDTO.setSchoolId(student.getSchool().getId());
                 studentDTOS.add(studentDTO);
             }
             return studentDTOS;
@@ -111,6 +112,7 @@ public class StudentServiceImpl implements StudentService {
             studentDTO.setLastName(student.getLastName());
             studentDTO.setAddress(student.getAddress());
             studentDTO.setDob(student.getDob());
+            studentDTO.setSchoolId(student.getSchool().getId());
             return studentDTO;
         } catch (Exception e) {
             log.error("error occurred in getStudentById");

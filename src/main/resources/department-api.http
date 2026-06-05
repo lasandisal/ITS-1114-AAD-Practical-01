@@ -3,18 +3,24 @@ POST http://localhost:8080/v1/departments
 Content-Type: application/json
 
 {
-  "department_name": "Computing",
-  "department_location": "Building A - Floor 2"
+  "name": "Computing",
+  "location": "Building A - Floor 2"
 }
 
 ### 2. Get All Departments
 GET http://localhost:8080/v1/departments/all
 Accept: application/json
 
-### 3. Get Department By ID (Using PathVariable)
+### 3. Get Department By ID
 GET http://localhost:8080/v1/departments/1
 Accept: application/json
 
 ### 4. Update Department
 PUT http://localhost:8080/v1/departments
-Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Faculty of Computing",
+  "location": "Building A - Floor 3"
+}

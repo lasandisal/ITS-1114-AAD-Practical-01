@@ -27,8 +27,8 @@ public class StudentController {
         return studentService.getStudents();
     }
 
-    @GetMapping(value = "/{studentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public StudentDTO getStudent(@PathVariable("studentId") Long studentId){
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public StudentDTO getStudent(@PathVariable("id") Long studentId){
         return studentService.getStudentById(studentId);
     }
 

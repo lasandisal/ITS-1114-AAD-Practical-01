@@ -145,13 +145,14 @@ public class UserServiceImpl implements UserService {
     public void updateUserStatus(UserDTO userDTO) {
         log.info("Execute updateUserStatus for UserDTO: " + userDTO);
         try{
-            Optional<User> optionalUser = userRepository.findById(userDTO.getId());
-            if(!optionalUser.isPresent()){
-                throw new RuntimeException("User not found with id: " + userDTO.getId());
-            }
 
             if (userDTO.getId() == null) {
                 throw new IllegalArgumentException("User ID must not be null for status updates.");
+            }
+
+            Optional<User> optionalUser = userRepository.findById(userDTO.getId());
+            if(!optionalUser.isPresent()){
+                throw new RuntimeException("User not found with id: " + userDTO.getId());
             }
 
             if(userDTO.getStatus() == null){
@@ -163,7 +164,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
 
         } catch (Exception e) {
-            log.error("Error in getUserById!!!" + e.getMessage());
+            log.error("Error in update status!!!" + e.getMessage());
             throw e;
         }
     }

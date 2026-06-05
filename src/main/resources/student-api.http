@@ -1,5 +1,31 @@
-### GET request to example server
-GET https://examples.http-client.intellij.net/get
-    ?generated-in=IntelliJ IDEA
+### 1. Save a New Student
+POST http://localhost:8080/v1/students
+Content-Type: application/json
 
-###
+{
+  "firstName": "Lasandi",
+  "lastName": "Uvindya",
+  "dob": "2003-08-15",
+  "address": "Galle",
+  "schoolId": 1
+}
+
+### 2. Get All Students
+GET http://localhost:8080/v1/students/all
+Accept: application/json
+
+### 3. Get Student By ID
+GET http://localhost:8080/v1/students/1
+Accept: application/json
+
+### 4. Update Student Details
+PUT http://localhost:8080/v1/students
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "Lasandi",
+  "lastName": "Salwathura",
+  "dob": "2003-08-15",
+  "address": "Ahangama"
+}

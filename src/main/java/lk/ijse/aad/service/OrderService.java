@@ -1,7 +1,8 @@
 package lk.ijse.aad.service;
 
 import lk.ijse.aad.dto.OrderDTO;
+import lk.ijse.aad.dto.SaveOrderDTO;
 
 public interface OrderService {
-    OrderDTO saveOrder(OrderDTO orderDTO);
+    OrderDTO saveOrder(SaveOrderDTO saveOrderDTO);
 }

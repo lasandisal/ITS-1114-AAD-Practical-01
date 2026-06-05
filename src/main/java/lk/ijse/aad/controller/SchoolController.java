@@ -27,8 +27,8 @@ public class SchoolController {
         return schoolService.getSchools();
     }
 
-    @GetMapping(value = "/{schoolId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public SchoolDTO getSchoolById(@PathVariable("schoolId") Long id) {
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public SchoolDTO getSchoolById(@PathVariable("id") Long id) {
         return schoolService.getSchoolById(id);
     }
 

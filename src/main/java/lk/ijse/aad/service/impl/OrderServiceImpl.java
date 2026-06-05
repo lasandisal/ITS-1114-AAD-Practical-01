@@ -1,6 +1,7 @@
 package lk.ijse.aad.service.impl;
 
 import lk.ijse.aad.dto.OrderDTO;
+import lk.ijse.aad.dto.SaveOrderDTO;
 import lk.ijse.aad.entity.Customer;
 import lk.ijse.aad.entity.Order;
 import lk.ijse.aad.repository.CustomerRepository;
@@ -9,6 +10,7 @@ import lk.ijse.aad.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -23,34 +25,35 @@ public class OrderServiceImpl implements OrderService {
         this.customerRepository = customerRepository;
     }
 
-
     @Override
-    public OrderDTO saveOrder(OrderDTO orderDTO) {
-        log.info("Order Service: saveOrder");
+    public OrderDTO saveOrder(SaveOrderDTO saveOrderDTO) {
+        log.info("Order Service: saveOrder invoked with SaveOrderDTO");
 
-
-        // Do this by SaveOrderDTO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        try{
-            Order order = new Order();
-            order.setOrderDate(orderDTO.getOrderDate());
-
-            Optional<Customer> optionalCustomer = customerRepository.findById(orderDTO.getCustomerId());
-            if(!optionalCustomer.isPresent()){
-                log.error("Customer not found");
+        try {
+            Optional<Customer> optionalCustomer = customerRepository.findById(saveOrderDTO.getCustomerId());
+            if (!optionalCustomer.isPresent()) {
+                log.error("Save order failed. Customer with ID {} does not exist", saveOrderDTO.getCustomerId());
                 throw new RuntimeException("Customer not found");
             }
-
             Customer customer = optionalCustomer.get();
+
+            Order order = new Order();
+            order.setOrderDate(new Date());
+            order.setTotal(saveOrderDTO.getTotal());
+            order.setDescription(saveOrderDTO.getDescription());
             order.setCustomer(customer);
 
             Order orderSaved = orderRepository.save(order);
+            log.info("Order saved successfully with dynamic DB ID: {}", orderSaved.getId());
 
-            OrderDTO orderDTOSaved = new OrderDTO(orderSaved.getId(), orderSaved.getOrderDate(), orderSaved.getCustomer().getId());
-            return orderDTOSaved;
+            return new OrderDTO(
+                    orderSaved.getId(),
+                    orderSaved.getOrderDate(),
+                    orderSaved.getCustomer().getId()
+            );
 
-
-        }catch(Exception e){
-            log.error("Order Service: saveOrder");
+        } catch (Exception e) {
+            log.error("Error occurred while saving the order: " + e.getMessage());
             throw e;
         }
     }

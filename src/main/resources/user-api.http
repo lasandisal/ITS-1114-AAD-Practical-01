@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "firstName": "Natasha",
   "lastName": "Perera",
-  "dob": "2002-05-30",
+  "dob": "2002-05-30T00:00:00.000+00:00",
   "status": "ACTIVE"
 }
 
@@ -13,10 +13,31 @@ Content-Type: application/json
 GET http://localhost:8080/v1/users/all
 Accept: application/json
 
-### 3. Get User By ID (Using RequestParam)
+### 3. Get User By ID (Using RequestParam as defined in your controller)
 GET http://localhost:8080/v1/users/userId?id=1
 Accept: application/json
 
 ### 4. Update User
 PUT http://localhost:8080/v1/users
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "Natasha",
+  "lastName": "Gunaratne",
+  "dob": "2002-05-30T00:00:00.000+00:00",
+  "status": "ACTIVE"
+}
+
+### 5. Update User Status (Patch)
+PATCH http://localhost:8080/v1/users
+Content-Type: application/json
+
+{
+  "id": 1,
+  "status": "DISABLED"
+}
+
+### 6. Delete User (Soft Delete)
+DELETE http://localhost:8080/v1/users/1
 Accept: application/json

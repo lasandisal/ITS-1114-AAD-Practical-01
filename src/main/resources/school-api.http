@@ -1,28 +1,26 @@
+### 1. Save a New School
 POST http://localhost:8080/v1/schools
 Content-Type: application/json
 
 {
-  "name" : "Sanghamitta College",
+  "name": "Sanghamitta College",
   "location": "Galle"
 }
 
-###
-
+### 2. Get All Schools
 GET http://localhost:8080/v1/schools
 Accept: application/json
 
-###
-
+### 3. Get School By ID
 GET http://localhost:8080/v1/schools/1
 Accept: application/json
 
-###
-
+### 4. Update School
 PUT http://localhost:8080/v1/schools
 Content-Type: application/json
 
 {
   "id": 1,
-  "name" : "Sanghamitta Balika Vidyalaya",
+  "name": "Sanghamitta Balika Vidyalaya",
   "location": "Galle"
 }
