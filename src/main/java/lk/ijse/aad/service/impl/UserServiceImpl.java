@@ -188,4 +188,28 @@ public class UserServiceImpl implements UserService {
             throw e;
         }
     }
+
+    @Override
+    public List<UserDTO> filterUsers(String firstName, String lastName) {
+        log.info("Execute filterUsers for UserDTO: " + firstName + " " + lastName);
+
+        try{
+            List<UserDTO> responseList = new ArrayList<>();
+            List<User> userList = userRepository.fiilerUsers(firstName,lastName);
+
+            for (User user : userList) {
+                UserDTO userDTO = new UserDTO();
+                userDTO.setId(user.getId());
+                userDTO.setFirstName(user.getFirstName());
+                userDTO.setLastName(user.getLastName());
+                userDTO.setDob(user.getDob());
+                userDTO.setStatus(user.getStatus());
+                responseList.add(userDTO);
+            }
+            return responseList;
+        }catch(Exception e){
+            log.error("Error in filterUsers!!!" + e.getMessage());
+            throw e;
+        }
+    }
 }

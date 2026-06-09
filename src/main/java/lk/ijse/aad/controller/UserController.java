@@ -49,4 +49,14 @@ public class UserController {
         userService.deleteUser(id);
         return "User deleted successfully";
     }
+
+    // Types of @RequestParam
+    // @RequestParam(value = "userName", required = false)
+
+
+    @GetMapping(value = "/filter", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserDTO> filterUsers(@RequestParam(value = "firstName", required = false) String firstName,
+                                     @RequestParam(value = "lastName", required = false) String lastName){
+        return userService.filterUsers(firstName, lastName);
+    }
 }

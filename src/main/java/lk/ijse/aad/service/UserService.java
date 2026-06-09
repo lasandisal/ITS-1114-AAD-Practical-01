@@ -11,4 +11,5 @@ public interface UserService {
     UserDTO updateUser(UserDTO userDTO);
     void updateUserStatus(UserDTO userDTO);
     void deleteUser(Long id);
+    List<UserDTO> filterUsers(String firstName, String lastName);
 }

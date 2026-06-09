@@ -1,6 +1,5 @@
 package lk.ijse.aad.dto;
 
-import lk.ijse.aad.entity.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
